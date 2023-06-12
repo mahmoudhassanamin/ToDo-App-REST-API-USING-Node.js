@@ -13,6 +13,8 @@ const userSchema=new mongoose.Schema({
     mobile:{
         type:String,
     }
+},{
+    timestamps:true
 });
 
 const UserModel=mongoose.model("User",userSchema);

@@ -4,13 +4,15 @@
   "description": "ToDo App ",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ."
+    "start": "nodemon --inspect ."
   },
   "author": "mahmoud hassan",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.30.3",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.2.3"
   },
   "devDependencies": {

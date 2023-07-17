@@ -1,3 +1,4 @@
+
 const connectDB = require("./db.js");
 const path = require("path");
 const express = require("express");
@@ -25,7 +26,7 @@ app.use((err,req,res,next)=>{
 });
 
 connectDB().then(() => {
-    app.listen(process.env.port,()=>{
+    app.listen(process.env.PORT,()=>{
         console.log("app is listening on port 3000")
     });
 }).catch((error) => {

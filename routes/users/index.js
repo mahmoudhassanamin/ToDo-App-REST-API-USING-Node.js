@@ -1,5 +1,6 @@
 const router=require("express").Router();
 const {userController}=require("../../controllers");
+const { authorize } = require("../../middleware/authorize");
 
 router.post("/registeration",async (req,res,next)=>{
     const {body}=req
@@ -10,10 +11,20 @@ router.post("/registeration",async (req,res,next)=>{
         next(error);
     }
 })
-router.post("/login",(req,res,next)=>{
-   
+router.post("/login",async (req,res,next)=>{
+   const {body:{username , password}} = req;
+   try{
+        const jwtToken = await userController.login(username,password);
+        res.status(201).json({
+            msg:"you are logged",
+            token:jwtToken
+        });
+   }catch(error){
+        next(error);
+   }
 })
 
+router.use(authorize);
 router.get("/:id",async (req,res,next)=>{
     const {params:{id}}=req
     try{

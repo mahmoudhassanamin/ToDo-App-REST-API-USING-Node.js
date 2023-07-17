@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
-
+const argon2 = require('argon2');
 const userSchema=new mongoose.Schema({
     username:{
         type:String,
         maxLength:15,
         required:true,
         match:/^[a-zA-z0-9]+$/,
-        unique:true
+        unique:true  
     },
     password:{
         type:String,
@@ -26,6 +26,18 @@ const userSchema=new mongoose.Schema({
 },{
     timestamps:true
 });
+
+userSchema.pre('save',async function (next){
+    try{
+        const hashed = await argon2.hash(this.password);
+        this.password =hashed;
+    }catch(error){
+        next(error);
+    }
+})
+userSchema.methods.validatePassword = function (password) {
+    return argon2.verify(this.password,password);
+}
 
 const UserModel=mongoose.model("User",userSchema);
 

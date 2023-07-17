@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 
 
-module.exports=()=> mongoose.connect(process.env.connectionString, {
+module.exports=()=> {
+  console.log(process.env.connectionString)
+  return mongoose.connect(process.env.connectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }).then(() => {
@@ -10,4 +12,6 @@ module.exports=()=> mongoose.connect(process.env.connectionString, {
   .catch((error) => {
     console.log('error in MongoDB Atlas');
     throw error;
-  });
+  })
+  
+}
